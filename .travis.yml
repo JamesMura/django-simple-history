@@ -15,7 +15,7 @@ env:
   - DJANGO="Django>=1.11,<1.12"
   - DJANGO="Django>=2.0,<2.1"
   - DJANGO="Django>=2.1,<2.2"
-  - DB=postgres
+  - DJANGO="Django>=2.1,<2.2" DB=postgres
 
 install:
   - pip install -U coverage codecov
@@ -38,5 +38,9 @@ matrix:
       env: DJANGO="Django>=2.1,<2.2"
     - python: 3.4
       env: DJANGO="Django>=2.1,<2.2"
+    - python: 2.7
+      env: DJANGO="Django>=2.1,<2.2"  DB=postgres
+    - python: 3.4
+      env: DJANGO="Django>=2.1,<2.2"  DB=postgres
 
 after_success: codecov
