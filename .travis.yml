@@ -8,10 +8,14 @@ python:
   - 3.5
   - 3.6
 
+services:
+  - postgresql
+
 env:
   - DJANGO="Django>=1.11,<1.12"
   - DJANGO="Django>=2.0,<2.1"
   - DJANGO="Django>=2.1,<2.2"
+  - DB=postgres
 
 install:
   - pip install -U coverage codecov
@@ -19,6 +23,8 @@ install:
   - pip install -U $DJANGO
   - pip freeze
 
+before_script:
+  - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'CREATE DATABASE simple-history-test-db;' -U postgres; fi"
 script:
   - flake8 simple_history
   - coverage run setup.py test

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import logging
+import os
 from os.path import abspath, dirname, join
 from shutil import rmtree
 import sys
@@ -26,6 +27,14 @@ installed_apps = [
     'django.contrib.sessions',
     'django.contrib.admin',
 ]
+postgres_db_config = {
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     'simple-history-test-db',
+            'USER':     'postgres',
+            'PASSWORD': '',
+            'HOST':     'localhost',
+            'PORT':     '',
+        }
 
 DEFAULT_SETTINGS = dict(
     ALLOWED_HOSTS=['localhost'],
@@ -49,6 +58,11 @@ DEFAULT_SETTINGS = dict(
         },
     }],
 )
+
+test_db = os.environ.get('DB', None)
+if test_db == postgres:
+    DEFAULT_SETTINGS['DATABASES']['default'] = postgres_db_config
+
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
