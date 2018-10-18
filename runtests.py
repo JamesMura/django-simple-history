@@ -29,7 +29,7 @@ installed_apps = [
 ]
 postgres_db_config = {
             'ENGINE':   'django.db.backends.postgresql_psycopg2',
-            'NAME':     'simple-history-test-db',
+            'NAME':     'testdb',
             'USER':     'postgres',
             'PASSWORD': '',
             'HOST':     'localhost',
