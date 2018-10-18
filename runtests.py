@@ -27,14 +27,28 @@ installed_apps = [
     'django.contrib.sessions',
     'django.contrib.admin',
 ]
-postgres_db_config = {
-            'ENGINE':   'django.db.backends.postgresql_psycopg2',
-            'NAME':     'testdb',
-            'USER':     'postgres',
-            'PASSWORD': '',
-            'HOST':     'localhost',
-            'PORT':     '',
-        }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+    }
+}
+
+test_db = os.environ.get('DB', None)
+
+if test_db == 'postgres':
+    DATABASES['default'].update({
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'simple_history',
+    'USER': 'postgres',
+    })
+
+if test_db == 'mysql':
+    DATABASES['default'].update({
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'simple_history',
+        'USER': 'root',
+    })
 
 DEFAULT_SETTINGS = dict(
     ALLOWED_HOSTS=['localhost'],
@@ -43,11 +57,7 @@ DEFAULT_SETTINGS = dict(
     MEDIA_ROOT=media_root,
     STATIC_URL='/static/',
     INSTALLED_APPS=installed_apps,
-    DATABASES={
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-        }
-    },
+    DATABASES=DATABASES,
     TEMPLATES=[{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'APP_DIRS': True,
@@ -58,10 +68,6 @@ DEFAULT_SETTINGS = dict(
         },
     }],
 )
-
-test_db = os.environ.get('DB', None)
-if test_db == 'postgres':
-    DEFAULT_SETTINGS['DATABASES']['default'] = postgres_db_config
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
