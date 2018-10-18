@@ -60,7 +60,7 @@ DEFAULT_SETTINGS = dict(
 )
 
 test_db = os.environ.get('DB', None)
-if test_db == postgres:
+if test_db == 'postgres':
     DEFAULT_SETTINGS['DATABASES']['default'] = postgres_db_config
 
 MIDDLEWARE = [

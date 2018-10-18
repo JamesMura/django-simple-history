@@ -39,8 +39,8 @@ matrix:
     - python: 3.4
       env: DJANGO="Django>=2.1,<2.2"
     - python: 2.7
-      env: DJANGO="Django>=2.1,<2.2"  DB=postgres
+      env: DJANGO="Django>=2.1,<2.2" DB=postgres
     - python: 3.4
-      env: DJANGO="Django>=2.1,<2.2"  DB=postgres
+      env: DJANGO="Django>=2.1,<2.2" DB=postgres
 
 after_success: codecov
